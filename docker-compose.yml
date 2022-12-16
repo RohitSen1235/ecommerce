@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  web:
+    build: ./django/
+    container_name : web
+    # command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn ConfirmDoc.wsgi --bind 0.0.0.0:8000
+    volumes:
+      - ./django:/app/
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    restart: always
+
+  proxy:
+    build: ./nginx
+    container_name : proxy
+    restart: always
+    depends_on:
+      - web
+    ports:
+      - 80:80
+      - 443:443
+    # volumes:
+    #   - ./data/certbot/conf:/etc/letsencrypt
+    #   - ./data/certbot/www:/var/www/certbot
+    # environment:
+    #   - DOMAIN=${DOMAIN}
