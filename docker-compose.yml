@@ -5,8 +5,8 @@ services:
     build: ./django/
     container_name : web
     command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./django:/app/
+    # volumes:
+    #   - ./django:/app/
     ports:
       - 8000:8000
 
