@@ -6,5 +6,5 @@ COPY ./requirements.txt ./requirements.txt
 RUN pip install -r requirements.txt
 COPY . /app/
 WORKDIR /app
-USER root
-# RUN python manage.py collectstatic
+RUN python manage.py collectstatic
+
